@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Pantalla DVD</title>
+        <meta name="description" content="Evaluación de cierre de la Unidad I: Bocetos de introducción a la programación" />
+    </head>
+    <body>
+        <nav>
+            <a href="index.html"><span class="miNombre"></span></a>
+            <a href="page-1.html">HSB</a>
+            <a href="page-2.html">RGB</a>
+            <a href="page-3.html">Gato Mareado</a>
+            <a href="page-4.html">Pantalla DVD</a>
+        </nav>
+        <main></main>
+        <script>
+            var img;
+            var rad = 130;
+            var xpos, ypos;
+
+            var xspeed = 2.8;
+            var yspeed = 2.2;
+
+            var xdirection = 1;
+            var ydirection = 1;
+            var clr = {
+                r: 0,
+                g: 0,
+                b: 0,
+            };
+            function setup() {
+                createCanvas(windowWidth, windowHeight);
+                clr.r = random(0, 255);
+                clr.g = random(0, 255);
+                clr.b = random(0, 255);
+                xpos = width / 2;
+                ypos = height / 2;
+                rectMode(CENTER);
+                imageMode(CENTER);
+                selectAll("a")[4].addClass("aqui");
+                selectAll(".miNombre").forEach((n) => {
+                    n.html("Adrián Vásquez");
+                });
+                img = loadImage("https://raw.githubusercontent.com/profesorfaco/front-2023-1/main/sesion_03/dvd.png");
+                colorMode(HSB, 360, 100, 100, 100);
+            }
+
+            function draw() {
+                background("#111");
+                noStroke();
+                fill(clr.r, clr.g, clr.b);
+                rect(xpos, ypos, rad, rad);
+                image(img, xpos, ypos, rad, rad);
+                xpos = xpos + xspeed * xdirection;
+                ypos = ypos + yspeed * ydirection;
+                if (xpos > width - rad || xpos < rad) {
+                    xdirection *= -1;
+                    randomClr();
+                }
+                if (ypos > height - rad || ypos < rad) {
+                    ydirection *= -1;
+                    randomClr();
+                }
+            }
+
+            function windowResized() {
+                resizeCanvas(windowWidth, windowHeight);
+            }
+            function randomClr() {
+                clr.r = random(0, 255);
+                clr.g = random(0, 255);
+                clr.b = random(0, 255);
+            }
+        </script>
+    </body>
+</html>
